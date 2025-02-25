@@ -43,17 +43,17 @@
             </div>
             <div class="mb-3">
                 <label class="form-label"> Contraseña </label>
-                <input type="text" class="form-control" id="contraseña" required>
+                <input type="password" class="form-control" id="contraseña" required>
                 <span id="passwordError" style="color: red;"></span>
             </div>
             <div class="mb-3">
                 <label class="form-label"> Repetir contraseña </label>
-                <input type="text" class="form-control" id="rep_contra">
+                <input type="password" class="form-control" id="rep_contra">
             </div>
                 <label class="form-label"> Pin </label>
-                <input type="text" class="form-control" id="pin" minlength="6" required>
+                <input type="password" class="form-control" id="pin" minlength="6" required>
             </div>
-           <center> <button type="submit" class="btn btn-primary">Save</button> </center>
+           <center> <button type="button" class="btn btn-primary" onclick="createUsuarios(); return false;">Save</button> </center>
         </form>
     </div>
     <script src="../Backend/js/validaciones.js"></script>
