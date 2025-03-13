@@ -1,0 +1,31 @@
+footer {
+    background-color: #f8f9fa;
+    text-align: center;
+    padding: 0.5rem 0; /* Reducir el padding para hacer el footer más pequeño */
+}
+
+footer .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+footer .list-unstyled {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    list-style: none;
+}
+
+footer .list-unstyled li {
+    margin: 0 1rem;
+}
+
+footer .list-unstyled a {
+    color: #000;
+    text-decoration: none;
+}
+
+footer .list-unstyled a:hover {
+    text-decoration: underline;
+}

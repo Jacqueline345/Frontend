@@ -1,63 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Registro </title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Registro</title>
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styleFooter.css" rel="stylesheet">
+    <link href="css/styleLayout.css" rel="stylesheet">
 </head>
-
 <body>
+    <!-- El layout se cargará aquí -->
+    <div id="layout-placeholder"></div>
+
     <div class="container mt-5">
-        <h2 class="text-center"> Registro </h2>
+        <h2 class="text-center">Registro</h2>
 
         <form id="registerForm" class="mb-4">
             <input type="hidden" id="usuario">
             <div class="mb-3">
-                <label class="form-label"> Nombre </label>
+                <label class="form-label">Nombre</label>
                 <input type="text" class="form-control" id="nombre" required>
             </div>
             <div class="mb-3">
-                <label class="form-label"> Apellidos </label>
+                <label class="form-label">Apellidos</label>
                 <input type="text" class="form-control" id="apellidos" required>
             </div>
             <div class="mb-3">
-                <label class="form-label"> Número Telefonico </label>
+                <label class="form-label">Número Telefónico</label>
                 <input type="text" class="form-control" id="telefono" required>
             </div>
             <div class="mb-3">
-                <label class="form-label"> Correo Electronico </label>
+                <label class="form-label">Correo Electrónico</label>
                 <input type="text" class="form-control" id="correos" required>
                 <span id="correoError" style="color: red;"></span>
-
             </div>
             <div class="mb-3">
-                <label class="form-label"> Fecha de nacimiento </label>
+                <label class="form-label">Fecha de nacimiento</label>
                 <input type="date" class="form-control" id="nacimiento" required>
                 <span id="fechaError" style="color: red;"></span>
             </div>
             <div class="mb-3">
-                <label class="form-label"> Pais </label>
+                <label class="form-label">País</label>
                 <input type="text" class="form-control" id="pais">
             </div>
             <div class="mb-3">
-                <label class="form-label"> Contraseña </label>
+                <label class="form-label">Contraseña</label>
                 <input type="password" class="form-control" id="contraseña" required>
                 <span id="passwordError" style="color: red;"></span>
             </div>
             <div class="mb-3">
-                <label class="form-label"> Repetir contraseña </label>
+                <label class="form-label">Repetir contraseña</label>
                 <input type="password" class="form-control" id="rep_contra">
             </div>
-                <label class="form-label"> Pin </label>
+            <div class="mb-3">
+                <label class="form-label">Pin</label>
                 <input type="password" class="form-control" id="pin" minlength="6" required>
             </div>
-           <center> <button type="button" class="btn btn-primary" onclick="createUsuarios(); return false;">Save</button> </center>
+            <center><button type="button" class="btn btn-info" onclick="createUsuarios(); return false;"> Guardar </button></center>
         </form>
     </div>
+
+    <!-- Placeholder para el footer -->
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../Backend/js/validaciones.js"></script>
     <script src="../Backend/js/functions.js"></script>
+    <script src="js/functionLayout.js"></script>
+    <script src="js/functionsFooter.js"></script>
 </body>
-
 </html>

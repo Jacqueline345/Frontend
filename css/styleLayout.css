@@ -1,0 +1,12 @@
+/* styleLayout.css */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+body {
+    padding-top: 56px; /* Ajusta este valor según la altura de tu navbar */
+    padding-bottom: 56px; /* Añadir padding en la parte inferior para el footer */
+}
