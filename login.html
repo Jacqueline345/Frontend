@@ -15,7 +15,7 @@
 
     <main class="container my-4 text-center py-3" id="main-content">
         <h1>Iniciar Sesión</h1>
-        <form id="login-form">
+        <form id="login-form" onsubmit="loginUsuario(); return false;">
             <div class="mb-3">
                 <label for="user" class="form-label"> Usuario </label>
                 <input type="text" id="user" class="form-control" required>
@@ -24,7 +24,7 @@
                 <label for="password" class="form-label"> Contraseña </label>
                 <input type="password" id="password" class="form-control" required>
             </div>
-            <button type="submit" class="btn btn-info" onclick="login(); return false;"> Ingresar </button>
+            <button type="submit" class="btn btn-info"> Ingresar </button>
         </form>
     </main>
     
@@ -33,7 +33,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/functionLayout.js"></script>
+    <script src="js/functionsAuth.js"></script>
     <script src="js/functionsFooter.js"></script>
-    <script src="js/authFunctions.js"></script>
 </body>
 </html>
