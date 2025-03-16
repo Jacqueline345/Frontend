@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function() {
     loadAvatars();
 });
@@ -27,15 +28,32 @@ function showAdminPinPrompt() {
     pinModal.show();
 }
 
-function validateAdminPin() {
-    const pin = document.getElementById('adminPin').value;
-    // Validar el PIN del administrador (simulación)
-    if (pin === "1234") {
-        window.location.href = "gestion_videos.html"; // Redirigir a la pantalla de gestión de videos
-    } else {
-        alert("PIN incorrecto");
+document.addEventListener('DOMContentLoaded', function () {
+    // Aquí va todo tu código relacionado con la manipulación del DOM
+    async function validateAdminPin() {
+        const pin = document.getElementById('pin')?.value; // El símbolo '?' asegura que no falle si el elemento no existe
+
+        try {
+            // Lógica para validar el PIN
+            const usuario = await usuarioModel.findOne({ pin });
+
+            if (usuario) {
+                window.location.href = "gestion_videos.html"; // Redirigir a la pantalla de gestión de videos
+            } else {
+                alert("PIN incorrecto");
+            }
+        } catch (error) {
+            console.error("Error al validar el PIN:", error);
+            alert("Hubo un problema al validar el PIN. Inténtalo de nuevo.");
+        }
     }
-}
+
+    // Aquí puedes vincular la función a algún botón
+    const validarButton = document.getElementById('validarPinButton');
+    if (validarButton) {
+        validarButton.addEventListener('click', validateAdminPin);
+    }
+});
 
 function showUserPinPrompt(userId) {
     const pin = prompt("Ingrese el PIN del usuario restringido:");

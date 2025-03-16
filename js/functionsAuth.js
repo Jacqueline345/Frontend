@@ -1,7 +1,7 @@
 async function loginUsuario() {
     let usuario = {
-        correo: document.getElementById('user').value,
-        contraseña: document.getElementById('password').value
+        correo: document.getElementById('correo').value,
+        contraseña: document.getElementById('contraseña').value
     };
     const response = await fetch('http://localhost:3001/login', {
         method: 'POST',
