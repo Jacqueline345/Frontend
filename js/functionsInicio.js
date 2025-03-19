@@ -1,5 +1,5 @@
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     loadAvatars();
 });
 
@@ -28,42 +28,29 @@ function showAdminPinPrompt() {
     pinModal.show();
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    async function validateAdminPin() {
-        const pin = document.getElementById('pin').value;
-
-        if (!pin) {
-            alert("Por favor, introduce un PIN.");
-            return;
-        }
-
+async function validateAdminPin() {
+       userData= document.getElementById("pin").value;
         try {
-            const response = await fetch('http://localhost:3001/login', {
+            const response = await fetch('http://localhost:3001/validar', { // Cambia el puerto según corresponda
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ pin })
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ pin: userData }) 
             });
-
-            const data = await response.json();
-
-            if (data.success) {
+    
+            if (response.ok) {
+                const data = await response.json();
                 window.location.href = "gestion_videos.html";
+                console.log(data.message); // Mensaje de autenticación exitosa
             } else {
-                alert("PIN incorrecto");
+                const errorData = await response.json();
+                console.log(errorData.message); // Mensaje de error (ej. PIN incorrecto o usuario no encontrado)
             }
         } catch (error) {
-            console.error("Error al validar el PIN:", error);
-            alert("Hubo un problema al validar el PIN. Inténtalo de nuevo.");
+            console.error('Error al conectar con el servidor:', error);
         }
     }
-
-    const validarButton = document.getElementById('validarPinButton');
-    if (validarButton) {
-        validarButton.addEventListener('click', validateAdminPin);
-    }
-});
-
-
 function showUserPinPrompt(userId) {
     const pin = prompt("Ingrese el PIN del usuario restringido:");
     // Validar el PIN del usuario restringido (simulación)
