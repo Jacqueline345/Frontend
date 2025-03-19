@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html>
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -6,17 +7,28 @@
     <title> Usuarios Restringidos </title>
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styleFooter.css" rel="stylesheet">
+    <link href="css/styleLayout.css" rel="stylesheet">
     <script src="../Backend/js/functions.js"></script>
     <link rel="stylesheet" href="../Backend/css/style.css"></head>
 
 <body>
-    <div class="container">
-        <h3>Results:</h3>
-        <ul id="result"></ul>
-        <button onclick="window.location.href='usuarioRestringido.html'">Agregar</button>
-        <button onclick="restringidoGet();">Ver usuarios restringidos</button>
+    <!-- El layout se cargará aquí -->
+    <div id="layout-placeholder"></div>
 
+    <div class="container my-4 text-center py-3" id="main-content">
+        <h1>Usuarios Restringidos Registrados</h1>
+        <ul id="result"></ul>
+        <button onclick="window.location.href='usuarioRestringido.html'" class=" btn btn-primary my-2">Agregar</button>
+        <button onclick="restringidoGet();" class="btn btn-success my-2">Ver usuarios restringidos</button>
     </div>
+
+    <!-- Placeholder para el footer -->
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/functionLayout.js"></script>
+    <script src="js/functionsFooter.js"></script>
 </body>
 
 </html>
