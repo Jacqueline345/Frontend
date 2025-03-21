@@ -6,13 +6,13 @@ document.addEventListener("DOMContentLoaded", function () {
 async function loadAvatars() {
     try {
         const response = await fetch('http://localhost:3001/restringido'); // Cambia la ruta a tu API
-        //const avatars = await response.json();
+        const avatars = await response.json();
 
-        //Simulación de carga de avatars de usuarios restringidos
+        /*Simulación de carga de avatars de usuarios restringidos
         const avatars = [
             { id: 1, name: "Usuario 1", img: "/img/avatar1.png" },
             { id: 2, name: "Usuario 2", img: "/img/avatar2.png" }
-        ];
+        ];*/
 
         const container = document.getElementById('avatars-container');
 
