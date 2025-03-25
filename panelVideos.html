@@ -18,8 +18,11 @@
 
     <div class="container my-4 text-center py-3" id="main-content">
         <h1>Escoja la playlist </h1>
+        <input type="text" id="search-input" class="form-control mb-3" placeholder="Buscar videos...">
+        <button onclick="searchVideos()" class="btn btn-info "> Buscar </button>
+        <div id="videos-container" class="list-group"></div>
         <ul id="result"></ul>
-        <button onclick="playlistGet()" class="btn btn-success my-2">Ver playlist</button>
+        <button onclick="playlistGet()" class="btn btn-success ">Ver playlist</button>
     </div>
 
     <!-- Placeholder para el footer -->

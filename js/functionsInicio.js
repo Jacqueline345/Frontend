@@ -49,7 +49,7 @@ async function validateAdminPin() {
 
         if (response.ok) {
             const data = await response.json();
-            window.location.href = "gestion_videos.html";
+            window.location.href = "panelVideos.html";
             console.log(data.message); // Mensaje de autenticación exitosa
         } else {
             const errorData = await response.json();

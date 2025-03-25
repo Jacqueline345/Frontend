@@ -19,7 +19,8 @@
     <div class="container my-4 text-center py-3" id="main-content">
         <h1> Gestion playlist </h1>
         <input type="text" id="search-input" class="form-control mb-3" placeholder="Buscar videos...">
-        <ul id="result"></ul>
+        <button onclick="searchVideos()" class="btn btn-info mb-3"> Buscar </button>
+        <div id="videos-container" class="list-group"></div>
         <button onclick="window.location.href='gestionPlaylist.html'" class=" btn btn-primary my-2">Agregar</button>
         <button onclick="playGet(); return false;" class="btn btn-success my-2">Ver playlist</button>
     </div>

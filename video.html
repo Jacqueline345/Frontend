@@ -18,6 +18,7 @@
     <div class="container my-4">
         <h1 class="text-center">Videos</h1>
         <input type="text" id="search-input" class="form-control mb-3" placeholder="Buscar videos...">
+        <button onclick="searchVideos()" class="btn btn-info mb-3"> Buscar </button>
         <div id="videos-container" class="list-group"></div>
     </div>
 
@@ -45,7 +46,7 @@
                             <textarea class="form-control" id="video-description"></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="nombre_playlist class="form-label"> Nombre Playlist</label>
+                            <label for="nombre_playlist" class="form-label"> Nombre Playlist </label>
                             <textarea class="form-control" id="playlistId"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Guardar</button>
