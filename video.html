@@ -18,7 +18,6 @@
     <div class="container my-4">
         <h1 class="text-center">Videos</h1>
         <input type="text" id="search-input" class="form-control mb-3" placeholder="Buscar videos...">
-        <button class="btn btn-primary mb-3" onclick="showAddVideoForm()">Agregar Nuevo Video</button>
         <div id="videos-container" class="list-group"></div>
     </div>
 
@@ -31,7 +30,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="video-form">
+                    <form id="video-form" class="needs-validation">
                         <input type="hidden" id="video-id">
                         <div class="mb-3">
                             <label for="video-title" class="form-label">Nombre del Video *</label>
@@ -44,6 +43,10 @@
                         <div class="mb-3">
                             <label for="video-description" class="form-label">Descripción</label>
                             <textarea class="form-control" id="video-description"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nombre_playlist class="form-label"> Nombre Playlist</label>
+                            <textarea class="form-control" id="playlistId"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Guardar</button>
                     </form>
@@ -60,6 +63,23 @@
     <script src="js/functionsFooter.js"></script>
     <script src="js/functionsVideo.js"></script>
     <script src="js/functionsBusqueda.js"></script>
+    <script>
+        // Bootstrap validation
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })();
+    </script>
 </body>
 
 </html>
