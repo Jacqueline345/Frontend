@@ -22,7 +22,7 @@ async function loadVideos() {
                 <p class="mb-1">${video.description}</p>
                 <button class="btn btn-warning btn-sm" onclick="editVideo('${video._id}')">Editar</button>
                 <button class="btn btn-danger btn-sm" onclick="deleteVideo('${video._id}')">Eliminar</button>
-            `;
+                `;
             container.appendChild(videoElement);
         });
     } catch (error) {

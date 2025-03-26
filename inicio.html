@@ -18,8 +18,7 @@
     <main class="container my-4 text-center py-3" id="main-content">
         <h1>Pantalla de Inicio</h1>
         <!-- Aquí se cargarán los avatars de los usuarios restringidos -->
-         <div id="avatars-container" class="d-flex justify-content-center flex-wrap"></div>
-        </div>
+        <ul id="result" class="list-unstyled d-flex justify-content-center flex-wrap"></ul>
         <button class="btn btn-primary my-3" onclick="showAdminPinPrompt()">Administración</button>
     </main>
 
@@ -37,7 +36,7 @@
                 <div class="modal-body">
                     <input type="password" id="pin" class="form-control" placeholder="Ingrese su PIN">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" id="validarPinButton" class="btn btn-primary" onclick="validateAdminPin()">Validar</button>
+                    <button type="button" id="validarPinButton" class="btn btn-primary" onclick="validatePin()">Validar</button>
                 </div>
             </div>
         </div>
