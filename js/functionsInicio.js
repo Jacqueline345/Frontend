@@ -1,41 +1,91 @@
-
-document.addEventListener("DOMContentLoaded", function () {
-    loadAvatars();
+document.addEventListener('DOMContentLoaded', async () => {
+    await usuariosGet();
 });
 
-async function loadAvatars() {
+// Función para cargar los usuarios restringidos desde la base de datos
+async function usuariosGet() {
     try {
-        const response = await fetch('http://localhost:3001/restringido'); // Cambia la ruta a tu API
-        const avatars = await response.json();
+        const response = await fetch("http://localhost:3001/restringido");
+        const restringidos = await response.json();
+        console.log('restringidos', restringidos);
 
-        /*Simulación de carga de avatars de usuarios restringidos
-        const avatars = [
-            { id: 1, name: "Usuario 1", img: "/img/avatar1.png" },
-            { id: 2, name: "Usuario 2", img: "/img/avatar2.png" }
-        ];*/
+        if (restringidos) {
+            const container = document.getElementById('result');
+            container.innerHTML = '';
+            restringidos.forEach(element => {
+                const item = document.createElement('li');
+                item.innerHTML = `
+                        <div class="card h-100 text-center">
+                        <img src="${element.avatar}" class="card-img-top img-thumbnail avatar-img" alt="${element.nombre_completo}">
+                        <div class="card-body">
+                            <h5 class="card-title">${element.nombre_completo}</h5>
+                            <a href="#" class="btn btn-primary select_button" data-id="${element._id}" data-nombre="${element.nombre_completo}">Seleccionar</a>
+                        </div>
+                    </div>
+                `;
+                item.setAttribute('data-id', element._id);
+                container.appendChild(item);
+            });
 
-        const container = document.getElementById('avatars-container');
-
-        avatars.forEach(avatar => {
-            const avatarElement = document.createElement('div');
-            avatarElement.classList.add('avatar');
-            avatarElement.innerHTML = `
-            <img src="${avatar.img}" alt="${avatar.name}" class="rounded-circle" style="width: 100px; height: 100px;">
-            <p>${avatar.name}</p>
-        `;
-            avatarElement.addEventListener('click', () => showUserPinPrompt(avatar.id));
-            container.appendChild(avatarElement);
-        });
-    }catch (error){
-        console.error('Error al carga los avatars: ', error);
+            assignSelectEvents();
+        }
+    } catch (error) {
+        console.error('Error al cargar usuarios restringidos:', error);
     }
 }
 
-function showAdminPinPrompt() {
+// Función para asignar eventos de selección a los botones
+function assignSelectEvents() {
+    const buttons = document.querySelectorAll('.select_button');
+    buttons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            const userId = button.getAttribute('data-id');
+            showPinPrompt(userId);
+        });
+    });
+}
+
+// Función para mostrar el modal de ingreso de PIN
+function showPinPrompt(userId) {
     const pinModal = new bootstrap.Modal(document.getElementById('pinModal'));
+    document.getElementById('validarPinButton').onclick = () => validatePin(userId);
     pinModal.show();
 }
 
+// Función para validar el PIN del usuario restringido
+async function validatePin(userId) {
+    userData = document.getElementById("pin").value;
+    try {
+        const response = await fetch('http://localhost:3001/validar', { // Cambia el puerto según corresponda
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ pin: userData })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            window.location.href = "playlistUsuarioRestringido.html";
+            console.log(data.message); // Mensaje de autenticación exitosa
+        } else {
+            const errorData = await response.json();
+            console.log(errorData.message); // Mensaje de error (ej. PIN incorrecto o usuario no encontrado)
+        }
+    } catch (error) {
+        console.error('Error al conectar con el servidor:', error);
+    }
+}
+
+// Función para mostrar el prompt de PIN de administración
+function showAdminPinPrompt() {
+    const pinModal = new bootstrap.Modal(document.getElementById('pinModal'));
+    document.getElementById('validarPinButton').onclick = validateAdminPin;
+    pinModal.show();
+}
+
+// Función para validar el PIN de administración
 async function validateAdminPin() {
     userData = document.getElementById("pin").value;
     try {
@@ -57,14 +107,5 @@ async function validateAdminPin() {
         }
     } catch (error) {
         console.error('Error al conectar con el servidor:', error);
-    }
-}
-function showUserPinPrompt(userId) {
-    const pin = prompt("Ingrese el PIN del usuario restringido:");
-    // Validar el PIN del usuario restringido (simulación)
-    if (pin === "5678") {
-        window.location.href = "playlistUsuarioRestringido.html"; // Redirigir a la pantalla del playlist
-    } else {
-        alert("PIN incorrecto");
     }
 }
