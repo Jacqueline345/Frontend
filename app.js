@@ -57,6 +57,7 @@ async function saveUsuario() {
         }
 
         const result = await response.json();
+        window.location.href = "login.html";
 
         if (result.errors) {
             console.error('Errores en la respuesta:', result.errors);
