@@ -29,7 +29,7 @@ async function saveUsuario() {
             createUsuarios(
                 nombre: "${nombre}",
                 apellidos: "${apellidos}",
-                telefono: ${parseInt(telefono, 8)},
+                telefono: ${telefono},
                 correos: "${correos}",
                 nacimiento: "${nacimiento}",
                 pais: "${pais}",
