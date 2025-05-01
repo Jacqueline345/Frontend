@@ -41,7 +41,7 @@ async function registerUsuario() {
         correos: document.getElementById('correos').value,
         nacimiento: document.getElementById('nacimiento').value,
         pais: document.getElementById('pais').value,
-        contraseña: document.getElementById('contraseña').value,
+        contrasena: document.getElementById('contrasena').value,
         pin: document.getElementById('pin').value,
     };
     const response = await fetch("http://localhost:3001/usuarios", {
@@ -49,13 +49,14 @@ async function registerUsuario() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(usuario)
+        body: JSON.stringify(usuario),
     });
 
     if (response.ok) {
         const data = await response.json();
         console.log('Usuario registrado:', data);
         alert('Usuario registrado exitosamente');
+        window.location.href = 'index.html';
     } else {
         alert("Error al registrar usuario");
     }
