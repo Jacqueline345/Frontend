@@ -1,8 +1,9 @@
 async function loginUsuario() {
     let usuario = {
         correo: document.getElementById('correo').value,
-        contraseña: document.getElementById('contraseña').value
+        contrasena: document.getElementById('contrasena').value
     };
+
     const response = await fetch('http://localhost:3001/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -10,20 +11,23 @@ async function loginUsuario() {
     });
 
     const data = await response.json();
+    console.log("Response:", data);
 
-    if (response.ok) {
-        console.log("Login exitoso:", data);
-        alert("Login exitoso");
-        // Guardar el nombre del usuario en el almacenamiento local
-        localStorage.setItem('userName', data.nombre);
-        // Redirigir a la página de inicio
-        window.location.href = 'inicio.html';
+    if (response.ok) {        
+        if (data.estado === 'activo') {
+            console.log("Login exitoso:", data);
+            alert("Login exitoso");
+            localStorage.setItem('userName', data.nombre);
+            window.location.href = 'inicio.html';
+        } else {
+            alert("Error: El usuario no está activo");
+            window.location.href = 'login.html';
+        }
     } else {
         console.log("Error:", data.message);
         alert("Error: " + data.message);
     }
 }
-
 function logoutUsuario() {
     // Eliminar el token y el nombre del usuario del almacenamiento local
     localStorage.removeItem('token');
