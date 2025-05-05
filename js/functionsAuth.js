@@ -17,8 +17,11 @@ async function loginUsuario() {
         if (data.estado === 'activo') {
             console.log("Login exitoso:", data);
             alert("Login exitoso");
+            localStorage.setItem('jwt', data.token);
             localStorage.setItem('userName', data.nombre);
-            window.location.href = 'inicio.html';
+            localStorage.setItem('userId', data._id); // Guardar el ID del usuario
+            localStorage.setItem('userTelefono', data.telefono); // Guardar el correo del usuario
+            window.location.href = 'Codigo.html';
         } else {
             alert("Error: El usuario no está activo");
             window.location.href = 'login.html';
@@ -58,6 +61,7 @@ async function registerUsuario() {
 
     if (response.ok) {
         const data = await response.json();
+        localStorage.setItem('jwt', data.token);
         console.log('Usuario registrado:', data);
         alert('Usuario registrado exitosamente');
         window.location.href = 'index.html';

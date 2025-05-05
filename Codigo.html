@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Verificación de Código</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        input[type="text"] {
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            margin: 5px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+
+        #mensaje {
+            margin-top: 20px;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Introduce el código de verificación</h2>
+
+    <!-- Cuadros individuales para cada dígito -->
+    <form id="codigoForm">
+        <div id="inputs">
+            <input type="text" maxlength="1" />
+            <input type="text" maxlength="1" />
+            <input type="text" maxlength="1" />
+            <input type="text" maxlength="1" />
+            <input type="text" maxlength="1" />
+            <input type="text" maxlength="1" />
+        </div>
+        <button type="submit">Verificar</button>
+        <div id="mensaje"></div>
+    </form>
+
+    <script>
+        // Enviar código automáticamente al cargar
+        window.onload = () => {
+
+            fetch('/enviar-codigo', {
+                method: 'POST',
+                credentials: 'include'
+            })
+                .then(res => res.text()) 
+                .then(msg => {
+                    console.log('Respuesta del servidor:', msg); // "Código enviado"
+                })
+                .catch(err => {
+                    console.error('Error al enviar el código:', err);
+                });
+            }
+
+            // Autoenfocar siguiente campo al ingresar número
+            document.querySelectorAll('#inputs input').forEach((input, i, arr) => {
+                input.addEventListener('input', () => {
+                    if (input.value.length === 1 && i < arr.length - 1) {
+                        arr[i + 1].focus();
+                    }
+                });
+            });
+
+            // Enviar el código al servidor
+            document.getElementById('codigoForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const codigo = Array.from(document.querySelectorAll('#inputs input'))
+                    .map(input => input.value)
+                    .join('');
+
+                if (codigo.length !== 6) {
+                    document.getElementById('mensaje').innerText = 'Código incompleto';
+                    return;
+                }
+
+                const res = await fetch('/verificar-codigo', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ codigo })
+                });
+
+                const resultado = await res.text();
+                if (res.ok) {
+                    window.location.href = '/frontend/inicio.html'; // Página siguiente si todo va bien
+                } else {
+                    document.getElementById('mensaje').innerText = resultado;
+                }
+            });
+    </script>
+</body>
+
+</html>
