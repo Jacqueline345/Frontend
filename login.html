@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <link href="css/styleFooter.css" rel="stylesheet">
     <link href="css/styleLayout.css" rel="stylesheet">
 </head>
+
 <body>
     <!-- El layout se cargará aquí -->
     <div id="layout-placeholder"></div>
@@ -25,9 +27,12 @@
                 <input type="password" id="contrasena" class="form-control" required>
             </div>
             <button type="submit" class="btn btn-info"> Ingresar </button>
+            <a href="http://localhost:3001/auth/google/login-success">
+                <button>Iniciar sesión con Google</button>
+            </a>
         </form>
     </main>
-    
+
     <!-- Placeholder para el footer -->
     <div id="footer-placeholder"></div>
 
@@ -36,4 +41,5 @@
     <script src="js/functionsAuth.js"></script>
     <script src="js/functionsFooter.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Iniciando sesión...</title>
+  <script>
+    window.onload = () => {
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get('token');
+      const nombre = params.get('nombre');
+
+      if (token) {
+        localStorage.setItem('token', token);
+        localStorage.setItem('nombreUsuario', nombre);
+        window.location.href = '/inicio.html';
+      } else {
+        alert('Error al iniciar sesión');
+        window.location.href = '/';
+      }
+    };
+  </script>
+</head>
+<body>
+  Iniciando sesión con Google...
+</body>
+</html>
