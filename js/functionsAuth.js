@@ -7,7 +7,8 @@ async function loginUsuario() {
     const response = await fetch('http://localhost:3001/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(usuario)
+        body: JSON.stringify(usuario),
+        credentials: 'include' // Asegúrate de incluir las credenciales si es necesario
     });
 
     const data = await response.json();
@@ -19,8 +20,9 @@ async function loginUsuario() {
             alert("Login exitoso");
             localStorage.setItem('jwt', data.token);
             localStorage.setItem('userName', data.nombre);
-            localStorage.setItem('userId', data._id); // Guardar el ID del usuario
-            localStorage.setItem('userTelefono', data.telefono); // Guardar el correo del usuario
+            localStorage.setItem('userId', data.id); // Guardar el ID del usuario
+            localStorage.setItem('codigo2FA', data.codigo2FA); // Guardar el código 2FA
+            localStorage.setItem('codigoExpira', data.codigoExpira); // Guardar la fecha de expiración del código 2FA
             window.location.href = 'Codigo.html';
         } else {
             alert("Error: El usuario no está activo");

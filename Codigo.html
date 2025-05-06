@@ -3,104 +3,51 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Verificación de Código</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 80px;
-        }
-
-        input[type="text"] {
-            font-size: 24px;
-            width: 40px;
-            height: 40px;
-            text-align: center;
-            margin: 5px;
-        }
-
-        button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-        }
-
-        #mensaje {
-            margin-top: 20px;
-            color: red;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación</title>
 </head>
 
 <body>
-    <h2>Introduce el código de verificación</h2>
-
-    <!-- Cuadros individuales para cada dígito -->
-    <form id="codigoForm">
-        <div id="inputs">
-            <input type="text" maxlength="1" />
-            <input type="text" maxlength="1" />
-            <input type="text" maxlength="1" />
-            <input type="text" maxlength="1" />
-            <input type="text" maxlength="1" />
-            <input type="text" maxlength="1" />
-        </div>
-        <button type="submit">Verificar</button>
-        <div id="mensaje"></div>
+    <h1>Verificar Código 2FA</h1>
+    <form id="codigoForm" onsubmit="Verificar(event); return false;">
+        <label for="codigo">Código de verificación:</label>
+        <input type="text" id="codigo" name="codigo" required>
+        <button type="submit">Verificar Código</button>
     </form>
 
+    <!-- Aquí definimos la función Verificar directamente -->
     <script>
-        // Enviar código automáticamente al cargar
-        window.onload = () => {
+        function Verificar(event) {
+            event.preventDefault();  // Prevenir el comportamiento por defecto del formulario
 
-            fetch('/enviar-codigo', {
-                method: 'POST',
-                credentials: 'include'
-            })
-                .then(res => res.text()) 
-                .then(msg => {
-                    console.log('Respuesta del servidor:', msg); // "Código enviado"
-                })
-                .catch(err => {
-                    console.error('Error al enviar el código:', err);
-                });
+            // Obtener el código ingresado y los datos del localStorage
+            const codigoIngresado = document.getElementById("codigo").value;
+            const codigoGuardado = localStorage.getItem("codigo2FA");
+            const expiracionGuardada = localStorage.getItem("codigoExpira");
+
+            // Verificar si los valores necesarios están presentes en localStorage
+            if (!codigoGuardado || !expiracionGuardada) {
+                alert("No se ha encontrado información de verificación.");
+                return;
             }
 
-            // Autoenfocar siguiente campo al ingresar número
-            document.querySelectorAll('#inputs input').forEach((input, i, arr) => {
-                input.addEventListener('input', () => {
-                    if (input.value.length === 1 && i < arr.length - 1) {
-                        arr[i + 1].focus();
-                    }
-                });
-            });
+            // Comprobar si el código ha expirado
+            const now = Date.now();
+            if (now > expiracionGuardada) {
+                alert("El código ha expirado. Por favor, solicita uno nuevo.");
+                return;
+            }
 
-            // Enviar el código al servidor
-            document.getElementById('codigoForm').addEventListener('submit', async (e) => {
-                e.preventDefault();
-
-                const codigo = Array.from(document.querySelectorAll('#inputs input'))
-                    .map(input => input.value)
-                    .join('');
-
-                if (codigo.length !== 6) {
-                    document.getElementById('mensaje').innerText = 'Código incompleto';
-                    return;
-                }
-
-                const res = await fetch('/verificar-codigo', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ codigo })
-                });
-
-                const resultado = await res.text();
-                if (res.ok) {
-                    window.location.href = '/frontend/inicio.html'; // Página siguiente si todo va bien
-                } else {
-                    document.getElementById('mensaje').innerText = resultado;
-                }
-            });
+            // Validar el código ingresado
+            if (codigoIngresado === codigoGuardado) {
+                alert("¡Código verificado correctamente!");
+                
+                // Redirigir al inicio (puedes cambiar esta URL a la que necesites)
+                window.location.href = "inicio.html";
+            } else {
+                alert("El código ingresado es incorrecto.");
+            }
+        }
     </script>
 </body>
 
